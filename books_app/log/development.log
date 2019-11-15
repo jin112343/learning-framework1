@@ -57,3 +57,213 @@ Processing by Rails::InfoController#routes as HTML
 Completed 200 OK in 13ms (Views: 10.9ms | ActiveRecord: 0.0ms)
 
 
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddAuthorToBooks (20191115005655)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "books" ADD "author" varchar[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20191115005655"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.9ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/books" for ::1 at 2019-11-15 10:12:43 +0900
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by BooksController#index as HTML
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mBook Load (0.5ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  Rendered books/index.html.erb within layouts/application (11.0ms)
+Completed 200 OK in 300ms (Views: 287.5ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/books/new" for ::1 at 2019-11-15 10:12:49 +0900
+Processing by BooksController#new as HTML
+  Rendering books/new.html.erb within layouts/application
+  Rendered books/_form.html.erb (2.4ms)
+  Rendered books/new.html.erb within layouts/application (5.0ms)
+Completed 500 Internal Server Error in 14ms (ActiveRecord: 0.0ms)
+
+
+  
+SyntaxError (/Users/jinmizou/fujiwara/learning-framework1/books_app/app/views/books/_form.html.erb:26: syntax error, unexpected ':'
+... form.text_field :author, id: : book_author );@output_buffer...
+...                              ^):
+  
+app/views/books/_form.html.erb:26: syntax error, unexpected ':'
+app/views/books/new.html.erb:3:in `_app_views_books_new_html_erb__3117000938102179386_70361503090760'
+Started GET "/books/new" for ::1 at 2019-11-15 10:24:36 +0900
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by BooksController#new as HTML
+  Rendering books/new.html.erb within layouts/application
+  Rendered books/_form.html.erb (25.5ms)
+  Rendered books/new.html.erb within layouts/application (28.1ms)
+Completed 200 OK in 205ms (Views: 190.2ms | ActiveRecord: 0.4ms)
+
+
+Started POST "/books" for ::1 at 2019-11-15 10:26:39 +0900
+Processing by BooksController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"yzL5jqVLlxOgTp+2QWDal5r/2P95aqnsRXLKTDWGsgpIgBWa5m3sUtvzFGyoE7pB7nbhmxxmNe0hBNtLV6Lz4g==", "book"=>{"title"=>"ちはやふる", "memo"=>"かるた漫画", "author"=>"未次由紀"}, "commit"=>"Create Book"}
+  [1m[35m (0.0ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (1.1ms)[0m  [1m[32mINSERT INTO "books" ("title", "memo", "created_at", "updated_at", "author") VALUES (?, ?, ?, ?, ?)[0m  [["title", "ちはやふる"], ["memo", "かるた漫画"], ["created_at", "2019-11-15 01:26:39.642565"], ["updated_at", "2019-11-15 01:26:39.642565"], ["author", "未次由紀"]]
+  [1m[35m (0.9ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/books/2
+Completed 302 Found in 10ms (ActiveRecord: 2.3ms)
+
+
+Started GET "/books/2" for ::1 at 2019-11-15 10:26:39 +0900
+Processing by BooksController#show as HTML
+  Parameters: {"id"=>"2"}
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 2], ["LIMIT", 1]]
+  Rendering books/show.html.erb within layouts/application
+  Rendered books/show.html.erb within layouts/application (1.5ms)
+Completed 200 OK in 35ms (Views: 22.8ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/books" for ::1 at 2019-11-15 10:26:54 +0900
+Processing by BooksController#index as HTML
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  Rendered books/index.html.erb within layouts/application (4.6ms)
+Completed 200 OK in 35ms (Views: 31.4ms | ActiveRecord: 0.2ms)
+
+
+  [1m[36mBook Load (0.5ms)[0m  [1m[34mSELECT  "books".* FROM "books" ORDER BY "books"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to AddPictureToBooks (20191115020151)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  [1m[35mALTER TABLE "books" ADD "picture" varchar[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20191115020151"]]
+  [1m[35m (2.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/books" for ::1 at 2019-11-15 11:22:40 +0900
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+SyntaxError (/Users/jinmizou/fujiwara/learning-framework1/books_app/app/controllers/books_controller.rb:72: syntax error, unexpected ':', expecting ')'
+...ermit(:title, :memo, :author, :
+...                              ^):
+  
+app/controllers/books_controller.rb:72: syntax error, unexpected ':', expecting ')'
+Started GET "/books" for ::1 at 2019-11-15 11:25:19 +0900
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by BooksController#index as HTML
+Completed 500 Internal Server Error in 16ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (uninitialized constant Book::PictureUploader):
+  
+app/models/book.rb:2:in `<class:Book>'
+app/models/book.rb:1:in `<top (required)>'
+app/controllers/books_controller.rb:7:in `index'
+Started GET "/books" for ::1 at 2019-11-15 11:26:52 +0900
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+SyntaxError (/Users/jinmizou/fujiwara/learning-framework1/books_app/app/controllers/books_controller.rb:72: syntax error, unexpected ':', expecting ')'
+...ermit(:title, :memo, :author, :
+...                              ^):
+  
+app/controllers/books_controller.rb:72: syntax error, unexpected ':', expecting ')'
+Started GET "/books" for ::1 at 2019-11-15 11:29:12 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by BooksController#index as HTML
+Completed 500 Internal Server Error in 10ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (uninitialized constant Book::PictureUploader):
+  
+app/models/book.rb:2:in `<class:Book>'
+app/models/book.rb:1:in `<top (required)>'
+app/controllers/books_controller.rb:7:in `index'
+Started GET "/books" for ::1 at 2019-11-15 11:32:03 +0900
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by BooksController#index as HTML
+Completed 500 Internal Server Error in 11ms (ActiveRecord: 0.0ms)
+
+
+  
+NameError (uninitialized constant Book::PictureUploader):
+  
+app/models/book.rb:2:in `<class:Book>'
+app/models/book.rb:1:in `<top (required)>'
+app/controllers/books_controller.rb:7:in `index'
+Started GET "/books" for ::1 at 2019-11-15 11:38:58 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by BooksController#index as HTML
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  Rendered books/index.html.erb within layouts/application (10.3ms)
+Completed 200 OK in 178ms (Views: 167.2ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/books/new" for ::1 at 2019-11-15 11:39:17 +0900
+Processing by BooksController#new as HTML
+  Rendering books/new.html.erb within layouts/application
+  Rendered books/_form.html.erb (21.6ms)
+  Rendered books/new.html.erb within layouts/application (23.1ms)
+Completed 200 OK in 35ms (Views: 32.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/books" for ::1 at 2019-11-15 11:39:40 +0900
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by BooksController#index as HTML
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  Rendered books/index.html.erb within layouts/application (8.6ms)
+Completed 200 OK in 139ms (Views: 127.9ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/books/new" for ::1 at 2019-11-15 11:39:42 +0900
+Processing by BooksController#new as HTML
+  Rendering books/new.html.erb within layouts/application
+  Rendered books/_form.html.erb (10.3ms)
+  Rendered books/new.html.erb within layouts/application (11.3ms)
+Completed 200 OK in 20ms (Views: 19.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/books" for ::1 at 2019-11-15 11:44:15 +0900
+Processing by BooksController#index as HTML
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mBook Load (0.1ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  Rendered books/index.html.erb within layouts/application (2.6ms)
+Completed 200 OK in 14ms (Views: 12.3ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/books/new" for ::1 at 2019-11-15 11:44:17 +0900
+Processing by BooksController#new as HTML
+  Rendering books/new.html.erb within layouts/application
+  Rendered books/_form.html.erb (2.0ms)
+  Rendered books/new.html.erb within layouts/application (3.1ms)
+Completed 200 OK in 27ms (Views: 25.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/books" for ::1 at 2019-11-15 11:46:07 +0900
+Processing by BooksController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"jVGKHHmca5ewqzq3O703UR2MClaF0YgOl40ljkX1s9m3aFsnyDooXS5eNjqTk9a1SjVFddl2u99y5jzuQ50gmw==", "book"=>{"title"=>"フェリカの真実", "memo"=>"ソニー", "author"=>"立石", "picture"=>#<ActionDispatch::Http::UploadedFile:0x00007ff9c1f80210 @tempfile=#<Tempfile:/var/folders/yq/q7w_fx2501bd05l6cdd7y1xw0000gn/T/RackMultipart20191115-2791-xoq0nr.jpg>, @original_filename="41iDQb6XctL.jpg", @content_type="image/jpeg", @headers="Content-Disposition: form-data; name=\"book[picture]\"; filename=\"41iDQb6XctL.jpg\"\r\nContent-Type: image/jpeg\r\n">}, "commit"=>"Create Book"}
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (2.5ms)[0m  [1m[32mINSERT INTO "books" ("title", "memo", "created_at", "updated_at", "author", "picture") VALUES (?, ?, ?, ?, ?, ?)[0m  [["title", "フェリカの真実"], ["memo", "ソニー"], ["created_at", "2019-11-15 02:46:07.828693"], ["updated_at", "2019-11-15 02:46:07.828693"], ["author", "立石"], ["picture", "41iDQb6XctL.jpg"]]
+  [1m[35m (0.8ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/books/3
+Completed 302 Found in 31ms (ActiveRecord: 3.4ms)
+
+
+Started GET "/books/3" for ::1 at 2019-11-15 11:46:07 +0900
+Processing by BooksController#show as HTML
+  Parameters: {"id"=>"3"}
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT  "books".* FROM "books" WHERE "books"."id" = ? LIMIT ?[0m  [["id", 3], ["LIMIT", 1]]
+  Rendering books/show.html.erb within layouts/application
+  Rendered books/show.html.erb within layouts/application (3.0ms)
+Completed 200 OK in 41ms (Views: 35.5ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/books" for ::1 at 2019-11-15 11:46:10 +0900
+Processing by BooksController#index as HTML
+  Rendering books/index.html.erb within layouts/application
+  [1m[36mBook Load (0.2ms)[0m  [1m[34mSELECT "books".* FROM "books"[0m
+  Rendered books/index.html.erb within layouts/application (4.6ms)
+Completed 200 OK in 35ms (Views: 31.1ms | ActiveRecord: 0.2ms)
+
+

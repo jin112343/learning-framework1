@@ -1,4 +1,24 @@
 class PictureUploader < CarrierWave::Uploader::Base
+  def root
+    Rails.root.join('storage', 'private_uploads').to_s
+  end
+
+  def url(*args)
+    "/books/#{model.id}/picture" if file && model.persisted?
+  end
+
+  def content_type_allowlist
+    %r{\Aimage/(jpeg|png|gif|webp)\z}
+  end
+
+  def extension_allowlist
+    %w[jpg jpeg png gif webp]
+  end
+
+  def size_range
+    1..5.megabytes
+  end
+
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick

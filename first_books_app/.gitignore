@@ -33,3 +33,8 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+/db/*.sqlite3*
+/storage/private_uploads/
+/public/uploads/
+/ruby-version.txt

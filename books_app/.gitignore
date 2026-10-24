@@ -1,0 +1,5 @@
+
+/db/*.sqlite3*
+/storage/private_uploads/
+/public/uploads/
+/ruby-version.txt

@@ -1,7 +1,7 @@
 name: Security validation
 on:
   push:
-    branches: [security/rails-8-20261025]
+    branches: [master, security/rails-8-20261025]
   pull_request:
   workflow_dispatch:
 permissions:
@@ -27,8 +27,8 @@ jobs:
           bundler: latest
           working-directory: ${{ matrix.app }}
       - run: ruby --version > ruby-version.txt
-      - run: bundle update
-      - run: bundle exec rails db:test:prepare
+      - run: bundle install
+      - run: bundle exec rails db:create db:migrate
         env:
           RAILS_ENV: test
       - run: bundle exec rails test

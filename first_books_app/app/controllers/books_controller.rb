@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_action :set_book, only: [:show, :edit, :update, :destroy, :picture]
 
   # GET /books
   # GET /books.json
@@ -59,6 +59,14 @@ class BooksController < ApplicationController
       format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def picture
+    path = @book.picture.path
+    return head :not_found unless path && File.file?(path)
+    response.headers['Cache-Control'] = 'private, no-store'
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    send_file path, disposition: 'inline', type: @book.picture.content_type
   end
 
   private

@@ -46,4 +46,4 @@ class SecurityTest < ActionDispatch::IntegrationTest
   ensure
     book&.remove_picture!
   end
-}
+end

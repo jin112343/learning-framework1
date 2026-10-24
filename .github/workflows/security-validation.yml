@@ -40,6 +40,10 @@ jobs:
       - run: bundle exec rails assets:precompile
         env:
           RAILS_ENV: test
+      - run: bundle exec rails test:system
+        if: matrix.app == 'first_books_app'
+        env:
+          RAILS_ENV: test
       - run: bundle exec bundle-audit check --update
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()

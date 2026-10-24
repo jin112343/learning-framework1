@@ -1,0 +1,51 @@
+name: Security validation
+on:
+  push:
+    branches: [security/rails-8-20261025]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  ruby:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [books_app, first_books_app, helloworld]
+    defaults:
+      run:
+        working-directory: ${{ matrix.app }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f
+        with:
+          ruby-version: '3.4.12'
+          bundler: latest
+          working-directory: ${{ matrix.app }}
+      - run: ruby --version > ruby-version.txt
+      - run: bundle update
+      - run: bundle exec rails db:test:prepare
+        env:
+          RAILS_ENV: test
+      - run: bundle exec rails test
+        env:
+          RAILS_ENV: test
+      - run: bundle exec rails zeitwerk:check
+        env:
+          RAILS_ENV: test
+      - run: bundle exec rails assets:precompile
+        env:
+          RAILS_ENV: test
+      - run: bundle exec bundle-audit check --update
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: security-${{ matrix.app }}
+          retention-days: 1
+          path: |
+            ${{ matrix.app }}/Gemfile.lock
+            ${{ matrix.app }}/ruby-version.txt

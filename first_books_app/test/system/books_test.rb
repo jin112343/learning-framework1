@@ -16,7 +16,7 @@ class BooksTest < ApplicationSystemTestCase
 
     fill_in "Author", with: @book.author
     fill_in "Memo", with: @book.memo
-    fill_in "Picture", with: @book.picture
+    attach_file 'Picture', Rails.root.join('test/fixtures/files/pixel.png')
     fill_in "Title", with: @book.title
     click_on "Create Book"
 
@@ -30,7 +30,7 @@ class BooksTest < ApplicationSystemTestCase
 
     fill_in "Author", with: @book.author
     fill_in "Memo", with: @book.memo
-    fill_in "Picture", with: @book.picture
+    attach_file 'Picture', Rails.root.join('test/fixtures/files/pixel.png')
     fill_in "Title", with: @book.title
     click_on "Update Book"
 

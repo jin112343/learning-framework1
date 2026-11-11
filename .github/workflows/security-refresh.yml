@@ -1,0 +1,53 @@
+name: Resolve and validate security patches
+on:
+  push:
+    branches: [security/security-updates-20261111]
+permissions:
+  contents: write
+jobs:
+  patch:
+    if: "!contains(github.event.head_commit.message, '[resolved-locks]')"
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+      - uses: ruby/setup-ruby@7f797815d8adceb1c412e7abefdd1ab4abc47a5f
+        with:
+          ruby-version: '3.4.12'
+          bundler: latest
+      - name: Resolve patched dependencies and run the application checks
+        env:
+          RAILS_ENV: test
+          SECRET_KEY_BASE_DUMMY: '1'
+        run: |
+          set -euo pipefail
+          for app in books_app first_books_app helloworld; do
+            (
+              cd "$app"
+              bundle config set --local path vendor/bundle
+              bundle update --conservative
+              bundle exec bundle-audit check --update
+              bundle exec rails db:create db:migrate
+              bundle exec rails test
+              bundle exec rails zeitwerk:check
+              bundle exec rails assets:precompile
+            )
+          done
+      - name: Save validated lockfiles on this security branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add books_app/Gemfile.lock first_books_app/Gemfile.lock helloworld/Gemfile.lock
+          if ! git diff --cached --quiet; then
+            git commit -m "Resolve validated security patches [resolved-locks]"
+            git push origin HEAD:security/security-updates-20261111
+          fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: patched-lockfiles
+          retention-days: 3
+          path: |
+            books_app/Gemfile.lock
+            first_books_app/Gemfile.lock
+            helloworld/Gemfile.lock
